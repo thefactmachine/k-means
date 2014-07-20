@@ -1,6 +1,12 @@
 rm(list=ls())
-setwd('/Users/zurich/Google Drive/FactMachine-SITE/FM-Site-STRUCTURE/08-KMeans/code/k-means')
-dfComplete <- read.csv('countryData.csv')
+library("RCurl")
+library(rworldmap)
+library(rworldxtra)
+
+x <- getURL("https://raw.githubusercontent.com/thefactmachine/k-means/master/countryData.csv")
+dfComplete <- read.csv(text = x)
+
+
 dataMat <- data.matrix(dfComplete[, -c(1,2)])
 rownames(dataMat) <- dfComplete$code
 
@@ -60,8 +66,7 @@ set.seed(456)
 kmOutput <- kmeans(dataMat, numCluster, nstart = 100)
 
 #lets put the cluster vector in a dataframe
-library(rworldmap)
-library(rworldxtra)
+
 
 dfCluster <- data.frame(code = names(kmOutput$cluster), 
                         clusterNumber = kmOutput$cluster)
@@ -75,6 +80,3 @@ mapParams <- mapCountryData(sPDF,nameColumnToPlot="clusterNumber" ,addLegend=FAL
                             borderCol = "#f2f2f2",
                             missingCountryCol = "#bcbcbc",
                             colourPalette=currentScheme[1:numCluster])
-
-
-
