@@ -1,7 +1,7 @@
 rm(list=ls())
 require(sqldf)
 
-setwd('/Users/zurich/Google Drive/FactMachine-SITE/FM-Site-STRUCTURE/08-KMeans/code/k-means')
+
 library(RCurl)
 
 euro <- getURL("https://raw.githubusercontent.com/thefactmachine/k-means/master/euroCountries.csv")
